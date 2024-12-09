@@ -63,10 +63,11 @@ let main argv =
             match jobArgs with
             | [] -> 0
             | exe :: args ->
+                sleep parseResults
+
                 match parseResults.Contains CpuAffinity with
                 | false ->
                     let info = ProcessStartInfo (exe, args)
-                    sleep parseResults
                     use job = Process.Start info
                     if parseResults.Contains Priority then
                         job.PriorityClass <- parseResults.GetResult Priority
