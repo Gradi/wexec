@@ -15,7 +15,7 @@ Example: wexec -- calc.exe arg1 arg2 arg3
 Example: wexec -p high -w -- calc.exe arg1 arg2 arg3
         Runs "calc.exe" with "high" priority, waits for it and arguments being "arg1", "arg2", "arg3"."--" is used to split arguments to "wexec" and arguments to subcommand.
 
-USAGE: wexec [--help] [--priority <normal|idle|high|realtime|belownormal|abovenormal>] [--wait] [--delay <int>]
+USAGE: wexec [--help] [--priority <normal|idle|high|realtime|belownormal|abovenormal>] [--wait] [--delay <int>] [--cpuaffinity <string>]
 
 OPTIONS:
 
@@ -23,6 +23,8 @@ OPTIONS:
                           Sets process priority.
     --wait, -w            Waits process before exit.
     --delay, -d <int>     Delays start. Seconds.
+    --cpuaffinity, -c <string>
+                          Cpu affinity. Can be: number (3) -- number of cpus, hex number (0x3) -- bit mask for cpus, list (1,2,3,5-6) list of cpus. Windows only.
     --help                display this list of options.
 ```
 
