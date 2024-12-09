@@ -37,7 +37,7 @@ let printUsage (parser: ArgumentParser<CliArgs>) =
 let sleep (parseResults: ParseResults<CliArgs>) =
     let seconds = parseResults.GetResult (Delay, defaultValue = 0)
     if seconds > 0 then
-        Thread.Sleep (TimeSpan.FromSeconds seconds)
+        Thread.Sleep (TimeSpan.FromSeconds (float seconds))
 
 let splitArguments (argv: string array) =
     let folder (myArgs, jobArgs, state) argument =
