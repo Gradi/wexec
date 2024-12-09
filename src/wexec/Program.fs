@@ -1,5 +1,6 @@
 ﻿module wexec.Program
 
+open System.Reflection
 open Argu
 open Printf
 open System
@@ -11,7 +12,10 @@ open CliArgs
 
 let printUsage (parser: ArgumentParser<CliArgs>) =
     let exe = parser.ProgramName
+    let version = Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
     let str = StringBuilder ()
+
+    bprintf str "Version: %s\n" version
     bprintf str $"Usage: %s{exe} [optional arguments to %s{exe}] -- [command and it's arguments].\n"
 
     bprintf str $"Example: %s{exe} -- calc.exe\n"
