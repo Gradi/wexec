@@ -20,7 +20,7 @@ type CliArgs =
             | Priority _ -> "Sets process priority."
             | Wait -> "Waits process before exit."
             | Delay _ -> "Delays start. Seconds."
-            | CpuAffinity _ -> "Cpu affinity. Can be: number (3) -- number of cpus, hex number (0x3) -- bit mask for cpus, list (1,2,3,5-6) list of cpus."
+            | CpuAffinity _ -> "Cpu affinity. Can be: number (3) -- number of cpus, hex number (0x3) -- bit mask for cpus, list (1,2,3,5-6) list of cpus. Windows only."
 
 
 let (|JustNumber|_|) (input: string) =
