@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Process.fs" />
+    <Compile Include="CliArgs.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

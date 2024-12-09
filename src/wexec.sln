@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "wexec", "wexec\wexec.fsproj", "{303A6A43-5E70-4A50-893C-F2DF885FF392}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{370A73B3-EA0F-4912-9383-816392207817}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Testwexec", "Tests\Testwexec\Testwexec.fsproj", "{FB3503F1-21D0-4422-86E3-2573A446EC2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -18,5 +22,12 @@ Global
 		{303A6A43-5E70-4A50-893C-F2DF885FF392}.Debug|x64.Build.0 = Debug|x64
 		{303A6A43-5E70-4A50-893C-F2DF885FF392}.Release|x64.ActiveCfg = Release|x64
 		{303A6A43-5E70-4A50-893C-F2DF885FF392}.Release|x64.Build.0 = Release|x64
+		{FB3503F1-21D0-4422-86E3-2573A446EC2D}.Debug|x64.ActiveCfg = Debug|x64
+		{FB3503F1-21D0-4422-86E3-2573A446EC2D}.Debug|x64.Build.0 = Debug|x64
+		{FB3503F1-21D0-4422-86E3-2573A446EC2D}.Release|x64.ActiveCfg = Release|x64
+		{FB3503F1-21D0-4422-86E3-2573A446EC2D}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FB3503F1-21D0-4422-86E3-2573A446EC2D} = {370A73B3-EA0F-4912-9383-816392207817}
 	EndGlobalSection
 EndGlobal

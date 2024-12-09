@@ -6,19 +6,8 @@ open System
 open System.Diagnostics
 open System.Text
 open System.Threading
+open CliArgs
 
-type CliArgs =
-    | [<AltCommandLine("-p")>] Priority of ProcessPriorityClass
-    | [<AltCommandLine("-w")>] Wait
-    | [<AltCommandLine("-d")>] Delay of int
-
-    interface IArgParserTemplate with
-
-        member this.Usage =
-            match this with
-            | Priority _ -> "Sets process priority."
-            | Wait -> "Waits process before exit."
-            | Delay _ -> "Delays start. Seconds."
 
 let printUsage (parser: ArgumentParser<CliArgs>) =
     let exe = parser.ProgramName
@@ -34,10 +23,12 @@ let printUsage (parser: ArgumentParser<CliArgs>) =
     bprintf str $"\"--\" is used to split arguments to \"%s{exe}\" and arguments to subcommand.\n"
     printfn "%s" (parser.PrintUsage(message = str.ToString ()))
 
+
 let sleep (parseResults: ParseResults<CliArgs>) =
     let seconds = parseResults.GetResult (Delay, defaultValue = 0)
     if seconds > 0 then
         Thread.Sleep (TimeSpan.FromSeconds (float seconds))
+
 
 let splitArguments (argv: string array) =
     let folder (myArgs, jobArgs, state) argument =
@@ -68,16 +59,34 @@ let main argv =
             match jobArgs with
             | [] -> 0
             | exe :: args ->
-                let info = ProcessStartInfo (exe, args)
-                sleep parseResults
-                use job = Process.Start info
-                if parseResults.Contains Priority then
-                    job.PriorityClass <- parseResults.GetResult Priority
-                if parseResults.Contains Wait then
-                    job.WaitForExit ()
-                    job.ExitCode
-                else
-                    0
+                match parseResults.Contains CpuAffinity with
+                | false ->
+                    let info = ProcessStartInfo (exe, args)
+                    sleep parseResults
+                    use job = Process.Start info
+                    if parseResults.Contains Priority then
+                        job.PriorityClass <- parseResults.GetResult Priority
+                    if parseResults.Contains Wait then
+                        job.WaitForExit ()
+                        job.ExitCode
+                    else
+                        0
+
+                // Use WinApi cause .NET doesn't have api to set cpu affinity.
+                | true ->
+                    let cpuAffinityMask = parseCpuAffinity (parseResults.GetResult CpuAffinity)
+                    use job = Process.start exe args
+                    job.SetCpuAffinity cpuAffinityMask
+                    if parseResults.Contains Priority then
+                        job.SetProcessPriority (parseResults.GetResult Priority)
+
+                    job.ResumeMainThread ()
+
+                    if parseResults.Contains Wait then
+                        job.WaitForExit ()
+                        job.GetExitCode ()
+                    else
+                        0
 
     with
     | exc ->
