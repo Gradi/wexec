@@ -4,10 +4,6 @@
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <OutputType>WinExe</OutputType>
-  </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="Process.fs" />
     <Compile Include="CliArgs.fs" />
