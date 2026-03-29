@@ -1,8 +1,8 @@
 <Project>
 
   <PropertyGroup>
-    <Version>1.0.1</Version>
-    <TargetFramework>net9.0</TargetFramework>
+    <Version>1.0.2</Version>
+    <TargetFramework>net10.0</TargetFramework>
     <LangVersion>preview</LangVersion>
     <Platforms>x64</Platforms>
     <Platform>x64</Platform>
